@@ -20,7 +20,7 @@ operatorsBtns.addEventListener('click', function(event) {
         let value = event.target.value
         args.push(Number(display.join("")));
         
-        if (value !== "clear" && value !== "calculate" && args.length == 1) {
+        if (value !== "clear" && value !== "calculate" && args.length === 1) {
             operator = value;
             display = [];
             updateDisplay();
@@ -83,7 +83,14 @@ function multiply (arr) {
 }
 
 function divide (arr) {
-    return arr.reduce((total, val) => total/val);
+    arr.reduce((total, val) => {
+        if (val == 0) {
+            alert("Can't divide by 0!");
+        }
+        else { return total/val};
+    } 
+
+    );
 }
 
 function operate (operator, numbers) {
