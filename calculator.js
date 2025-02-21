@@ -55,11 +55,10 @@ function updateDisplay (reset = false) {
 }
 
 function calculate () {
-    result = operate(operator, args); 
-    display = [];
-    display.push(result);
+    result = operate(operator, args);
+    args = [result];
+    display = [result];
     updateDisplay();
-    args= [];
 }
 
 function clearValues () {
