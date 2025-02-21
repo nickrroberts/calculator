@@ -14,30 +14,26 @@ numbersBtns.addEventListener('click', function(event) {
     }
 });
 
+
 operatorsBtns.addEventListener('click', function(event) {
     if (event.target.tagName === "BUTTON") {
         let value = event.target.value
         args.push(Number(display.join("")));
         
-        if (value !== "clear" && value !== "operate" ) {
-            display = [];
-            updateDisplay();
+        if (value !== "clear" && value !== "calculate" && args.length == 1) {
             operator = value;
+            display = [];
+            updateDisplay();
         } 
-
-        if (args.length > 1) {
-            result = operate(operator, args); 
-            display.push(result);
-            updateDisplay();
+        if (value !== "clear" && value !== "calculate" && args.length > 1) {
+            calculate();
+            operator = value;
             display = [];
-            
+            args.push(result); 
         }
-        if (value == "operate"){
-            result = operate(operator, args); 
-            display.push(result);
-            updateDisplay();
-            display = [];
-            args= [];
+
+        if (value == "calculate"){
+            calculate();
 
         }
         if (value == "clear") {
@@ -50,11 +46,20 @@ operatorsBtns.addEventListener('click', function(event) {
 
 function updateDisplay (reset = false) {
     if (display.length !== 0) {
-        numbersDisplay.value = display.join("");
+        numbersDisplay.value = display.join("").replace(/^0+(?=\d)/, "");;
     } 
+
     if (reset === true) {
         numbersDisplay.value = 0;
     }
+}
+
+function calculate () {
+    result = operate(operator, args); 
+    display = [];
+    display.push(result);
+    updateDisplay();
+    args= [];
 }
 
 function clearValues () {
