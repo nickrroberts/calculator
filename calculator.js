@@ -84,10 +84,13 @@ function multiply (arr) {
 }
 
 function divide(arr) {
-    if (arr.includes(0)) return "Error";
-    return arr.reduce((total, val) => total / val);
+    return arr.reduce((total, val) => {
+        if (val === 0 && total !== 0) {
+            return "No can do!";
+        }
+        return total / val;
+    });
 }
-
 function operate (operator, numbers) {
     switch (operator) {
         case "add":
