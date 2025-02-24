@@ -4,6 +4,7 @@ let display = [];
 let result = 0;
 let reset = false;
 
+
 let numbersDisplay = document.getElementById("numbersDisplay");
 let numbersBtns = document.getElementById("numbers");
 let operatorsBtns = document.getElementById("operators");
@@ -29,6 +30,7 @@ operatorsBtns.addEventListener('click', function(event) {
             calculate();
             operator = value;
             display = [];
+            args = [];
             args.push(result); 
         }
 
@@ -81,15 +83,9 @@ function multiply (arr) {
     return arr.reduce((total, val) => total*val);
 }
 
-function divide (arr) {
-    arr.reduce((total, val) => {
-        if (val == 0) {
-            alert("Can't divide by 0!");
-        }
-        else { return total/val};
-    } 
-
-    );
+function divide(arr) {
+    if (arr.includes(0)) return "Error";
+    return arr.reduce((total, val) => total / val);
 }
 
 function operate (operator, numbers) {
@@ -103,6 +99,7 @@ function operate (operator, numbers) {
         case "divide":
             return divide(numbers);
         default:
-            console.log("Something went wrong in calculating.")
+            console.log("Something went wrong in calculating.");
+            return numbers[0] || 0;
     }
 }
